@@ -34,7 +34,7 @@ export default inject('store')(
 
         function save() {
             store.updatePageSchemaAt(index);
-            toast.success('保存成功', '提示');
+            toast.success('保存成功', '提示', { position: 'top-center' });
         }
 
         function exit() {
