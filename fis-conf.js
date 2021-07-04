@@ -132,6 +132,17 @@ fis.match('tinymce/plugins/*/index.js', {
     ignoreDependencies: false
 });
 
+// 这些用了 esm
+fis.match('{echarts/extension/**.js, zrender/**.js}', {
+    parser: fis.plugin('typescript', {
+        sourceMap: true,
+        importHelpers: true,
+        esModuleInterop: true,
+        emitDecoratorMetadata: false,
+        experimentalDecorators: false
+    })
+});
+
 fis.match('*.html:jsx', {
     parser: fis.plugin('typescript'),
     rExt: '.js',
@@ -240,7 +251,7 @@ ghPages.match('::image', {
 });
 
 ghPages.match('*.{js,ts,tsx}', {
-    optimizer: fis.plugin('uglify-js'),
+    optimizer: fis.plugin('terser'),
     useHash: true
 });
 
@@ -280,7 +291,7 @@ ghPages.match('{*.jsx,*.tsx,*.ts,*.js}', {
     }
 });
 ghPages.match('*', {
-    domain: 'https://bce.bdstatic.com/fex/amis-editor-gh-pages',
+    domain: '/amis-editor-demo',
     deploy: [
         fis.plugin('skip-packed'),
         fis.plugin('local-deliver', {
